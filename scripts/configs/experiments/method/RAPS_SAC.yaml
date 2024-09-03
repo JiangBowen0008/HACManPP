@@ -1,0 +1,20 @@
+algo: TD3
+sample_action_logits: null
+
+# Exploration
+egreedy: 0.1
+location_model: null 
+action_noise: null
+
+# Feature
+action_mode: flat
+bg_mapping_mode: bbox
+feature_mode: points
+preprocessing_fn: flow
+pos_in_feature: False
+
+# Learning
+learning_rate: 1e-4
+batch_size: 64
+actor_update_interval: 1
+target_update_interval: 1

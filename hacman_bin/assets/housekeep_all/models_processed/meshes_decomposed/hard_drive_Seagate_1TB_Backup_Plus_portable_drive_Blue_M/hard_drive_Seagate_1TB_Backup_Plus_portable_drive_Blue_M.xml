@@ -1,0 +1,20 @@
+<mujoco model="hard_drive_Seagate_1TB_Backup_Plus_portable_drive_Blue_M">
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0" />
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh" />
+    </default>
+  </default>
+  <asset>
+    <mesh file="hard_drive_Seagate_1TB_Backup_Plus_portable_drive_Blue_M.stl" />
+    <mesh file="hard_drive_Seagate_1TB_Backup_Plus_portable_drive_Blue_M_collision_0.stl" />
+  </asset>
+  <worldbody>
+    <body name="hard_drive_Seagate_1TB_Backup_Plus_portable_drive_Blue_M">
+      <geom mesh="hard_drive_Seagate_1TB_Backup_Plus_portable_drive_Blue_M" class="visual" />
+      <geom mesh="hard_drive_Seagate_1TB_Backup_Plus_portable_drive_Blue_M_collision_0" class="collision" />
+    </body>
+  </worldbody>
+</mujoco>

@@ -1,0 +1,1 @@
+primitives: ['bin-poke', 'bin-pick_n_lift_fixed', 'bin-place_from_top_n_open_gripper']

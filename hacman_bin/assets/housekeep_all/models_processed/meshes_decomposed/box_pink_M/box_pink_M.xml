@@ -1,0 +1,26 @@
+<mujoco model="box_pink_M">
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0" />
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh" />
+    </default>
+  </default>
+  <asset>
+    <mesh file="box_pink_M.stl" />
+    <mesh file="box_pink_M_collision_0.stl" />
+    <mesh file="box_pink_M_collision_1.stl" />
+    <mesh file="box_pink_M_collision_2.stl" />
+    <mesh file="box_pink_M_collision_3.stl" />
+  </asset>
+    <worldbody>
+    <body name="box_pink_M">
+      <geom mesh="box_pink_M" class="visual" />
+      <geom mesh="box_pink_M_collision_0" class="collision" />
+      <geom mesh="box_pink_M_collision_1" class="collision" />
+      <geom mesh="box_pink_M_collision_2" class="collision" />
+      <geom mesh="box_pink_M_collision_3" class="collision" />
+    </body>
+  </worldbody>
+</mujoco>

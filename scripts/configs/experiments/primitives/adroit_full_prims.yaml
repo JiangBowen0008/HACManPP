@@ -1,0 +1,2 @@
+primitives: ["adroit-poke", "adroit-pick_n_lift_fixed", "adroit-place", "adroit-move",  "adroit-open_gripper"]
+# primitives: ["adroit-pick_n_lift_fixed", "adroit-move"]

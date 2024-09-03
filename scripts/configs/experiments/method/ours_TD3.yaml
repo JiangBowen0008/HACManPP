@@ -1,0 +1,17 @@
+algo: TD3
+
+# Exploration
+egreedy: 0.1
+location_model: argmaxQ 
+
+# Feature
+action_mode: per_point
+feature_mode: points
+preprocessing_fn: flow
+pos_in_feature: False
+
+# Learning
+learning_rate: 1e-4
+batch_size: 64
+actor_update_interval: 4
+target_update_interval: 4

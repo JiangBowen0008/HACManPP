@@ -1,0 +1,1 @@
+primitives: ['poke', 'pick_n_lift', 'place', 'move', 'open_gripper']

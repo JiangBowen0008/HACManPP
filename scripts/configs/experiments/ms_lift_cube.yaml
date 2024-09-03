@@ -1,0 +1,27 @@
+defaults:
+  - task: ms_lift_cube
+  - primitives: full_prims_3
+  - method: ours_TD3
+
+default_kwargs:
+  name: null
+  dirname: /logs/hacman
+  seed: 0
+  max_episode_steps: 10
+
+variants:
+  ours:
+    _base_: method/ours_MultiTD3
+  
+  
+  RAPS_TD3_pcd:
+    _base_: method/RAPS_TD3
+
+  
+  PP:
+    _base_: method/PP_MultiTD3
+  
+
+  
+
+skip_variants: []

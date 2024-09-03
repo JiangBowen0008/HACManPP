@@ -1,0 +1,38 @@
+defaults:
+  - task: double_bin
+  - primitives: bin_generalized_prims
+  - method: ours_TD3
+  - override task/bin_task: 6d
+  - override task/bin_objects: rand_size_all_objs
+
+default_kwargs:
+  name: null
+  dirname: /logs/hacman
+  seed: 0
+  train_steps: 2000000
+  save_replay_buffer: True
+  primitives: 'bin-poke bin-pick_n_lift_fixed bin-place_from_top bin-move bin-open_gripper'
+  exclude_gripper_pcd: false
+  exclude_wall_pcd: false
+  bin_base_size: [0.35, 0.249, 0.06]
+  gripper_friction: 0.4
+  friction_config: 'low_0.95'
+  object_scale_range: 0.6 1.0
+  rotation_type: 1
+
+variants:
+ 
+  ours:
+    _base_: method/ours_MultiTD3
+
+    
+
+  RAPS-TD3:
+    _base_: method/RAPS_TD3
+
+    
+  PP:
+    _base_: method/PP_MultiTD3
+
+
+skip_variants: []

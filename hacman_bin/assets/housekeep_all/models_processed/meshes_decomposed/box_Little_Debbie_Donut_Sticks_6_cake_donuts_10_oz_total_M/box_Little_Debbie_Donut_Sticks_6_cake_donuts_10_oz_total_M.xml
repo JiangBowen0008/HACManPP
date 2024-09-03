@@ -1,0 +1,20 @@
+<mujoco model="box_Little_Debbie_Donut_Sticks_6_cake_donuts_10_oz_total_M">
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0" />
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh" />
+    </default>
+  </default>
+  <asset>
+    <mesh file="box_Little_Debbie_Donut_Sticks_6_cake_donuts_10_oz_total_M.stl" />
+    <mesh file="box_Little_Debbie_Donut_Sticks_6_cake_donuts_10_oz_total_M_collision_0.stl" />
+  </asset>
+  <worldbody>
+    <body name="box_Little_Debbie_Donut_Sticks_6_cake_donuts_10_oz_total_M">
+      <geom mesh="box_Little_Debbie_Donut_Sticks_6_cake_donuts_10_oz_total_M" class="visual" />
+      <geom mesh="box_Little_Debbie_Donut_Sticks_6_cake_donuts_10_oz_total_M_collision_0" class="collision" />
+    </body>
+  </worldbody>
+</mujoco>

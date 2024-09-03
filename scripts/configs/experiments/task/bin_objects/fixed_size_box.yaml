@@ -1,0 +1,5 @@
+object_dataset: housekeep_all
+object_split_train: train_thick
+object_split_eval: train_thick
+object_name: box_003_cracker_box_M
+object_scale_range: [0.8, 0.8]

@@ -1,0 +1,20 @@
+<mujoco model="book_frl_apartment_book_03_M">
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0" />
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh" />
+    </default>
+  </default>
+  <asset>
+    <mesh file="book_frl_apartment_book_03_M.stl" />
+    <mesh file="book_frl_apartment_book_03_M_collision_0.stl" />
+  </asset>
+  <worldbody>
+    <body name="book_frl_apartment_book_03_M">
+      <geom mesh="book_frl_apartment_book_03_M" class="visual" />
+      <geom mesh="book_frl_apartment_book_03_M_collision_0" class="collision" />
+    </body>
+  </worldbody>
+</mujoco>

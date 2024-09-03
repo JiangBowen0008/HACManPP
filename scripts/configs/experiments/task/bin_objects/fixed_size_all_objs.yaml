@@ -1,0 +1,6 @@
+object_dataset: housekeep_all
+object_split_train: train_thick
+object_split_eval: train_thick
+object_name: null
+object_scale_range: [0.8, 0.8]
+convex_decomposed: True

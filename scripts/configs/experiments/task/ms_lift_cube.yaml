@@ -1,0 +1,30 @@
+env: lift_cube
+max_episode_steps: 1
+
+# Parallel env
+parallel_env: true
+train_n_envs: 60
+gradient_steps: 80
+
+# PCD
+object_pcd_size: 400
+background_pcd_size: 400
+background_clip_radius: 0.5
+voxel_downsample_size: 0.002
+
+# Task Reward
+reward_scale: 1
+use_flow_reward: false
+reward_aggregation: average
+location_model_temperature: 5
+
+# Exploration
+gamma: 0.99
+initial_timesteps: 10000
+action_noise: 0.1
+
+# Primitive config
+use_oracle_motion: false
+end_on_collision: false
+end_on_reached: true
+pad_rewards: true

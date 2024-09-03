@@ -1,0 +1,24 @@
+defaults:
+  - task: ms_insert_peg
+  - primitives: full_prims_1
+  - method: ours_MultiTD3
+
+default_kwargs:
+  name: null
+  dirname: /logs/hacman
+  seed: 0
+  save_replay_buffer: True
+  gamma: 0
+  train_steps: 1000000
+variants:
+  ours:
+    primitives: 'pick_n_lift place open_gripper move poke'
+  PP:
+    _base_: method/PP_MultiTD3
+    primitives: 'pick_n_lift place open_gripper move poke'
+    action_noise: 0.2
+  RAPS:
+    _base_: method/RAPS_TD3
+    primitives: 'pick_n_lift place open_gripper move poke'
+    action_noise: 0.2
+skip_variants: [0,1]

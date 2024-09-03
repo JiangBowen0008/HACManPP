@@ -1,0 +1,21 @@
+env: hacman_bin
+obstacle_full_size: null
+gamma: 0.99
+goal_on_oppo_side: false
+defaults:
+  - bin_objects: rand_size_cube
+  - bin_task: 6d
+
+# PCD
+object_pcd_size: 400
+background_pcd_size: 1000
+background_clip_radius: 2
+voxel_downsample_size: 0.01
+
+# Physics
+gripper_friction: 0.9
+
+# Parallel env
+parallel_env: true
+train_n_envs: 50
+gradient_steps: 70

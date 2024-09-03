@@ -1,0 +1,35 @@
+defaults:
+  - task: suite_nut_assembly
+  - primitives: suite_full_prims_3
+  - method: ours_TD3
+
+default_kwargs:
+  name: null
+  dirname: /logs/hacman
+  seed: 0
+  max_episode_steps: 10
+  clamp_critic_max: 0
+  clamp_critic_min: -50
+  train_steps: 1000000
+
+variants:
+  ours:
+    _base_: method/ours_MultiTD3
+    target_update_interval: 2
+    actor_update_interval: 2
+
+  
+  RAPS_TD3_pcd:
+    _base_: method/RAPS_TD3
+  
+ 
+  
+  PP:
+    _base_: method/PP_MultiTD3
+  
+
+  
+skip_variants: [1,2]
+
+
+

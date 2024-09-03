@@ -1,0 +1,1 @@
+primitives: ['suite-poke', 'suite-pick', 'suite-place', 'suite-move', 'suite-open_gripper']

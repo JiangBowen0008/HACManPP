@@ -1,0 +1,50 @@
+defaults:
+  - task: suite_pick_place
+  - primitives: suite_full_prims
+  - method: ours_TD3
+
+default_kwargs:
+  name: null
+  dirname: /logs/hacman
+  seed: 0
+  max_episode_steps: 10
+  clamp_critic_max: 0
+  clamp_critic_min: -50
+  train_steps: 2000000
+
+variants:
+  # ours:
+  #   _base_: method/ours_MultiTD3
+  #   target_update_interval: 2
+  #   actor_update_interval: 2
+  
+  ours_resume:
+    _base_: method/ours_MultiTD3
+    # target_update_interval: 2
+    # actor_update_interval: 2
+    # load_dirname: /home/bowenj/Projects/hacman_cleanup/logs/
+    # load_exp: Exp5010-0-0
+    # override_args: train_steps
+  
+  # RAPS_SAC_pcd:
+  #   _base_: method/RAPS_SAC
+  
+  # RAPS_SAC_states:
+  #   _base_: method/RAPS_SAC_states
+  
+  # RAPS_TD3_pcd:
+  #   _base_: method/RAPS_TD3
+  
+  # RAPS_TD3_states:
+  #   _base_: method/RAPS_SAC_states
+  
+  # PP:
+  #   _base_: method/PP_MultiTD3
+  
+  # PP_states:
+  #   _base_: method/PP_MultiTD3_states
+  
+skip_variants: []
+
+
+

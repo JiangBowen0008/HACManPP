@@ -1,0 +1,18 @@
+algo: MultiTD3
+
+# Exploration
+egreedy: 0.1
+location_model: argmaxQ 
+
+# Feature
+action_mode: per_primitive
+bg_mapping_mode: bbox
+feature_mode: points
+preprocessing_fn: flow
+pos_in_feature: False
+
+# Learning
+learning_rate: 1e-4
+batch_size: 64
+actor_update_interval: 1
+target_update_interval: 1

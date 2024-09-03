@@ -1,0 +1,1 @@
+primitives: ['poke', 'pick', 'place', 'move', 'place_n_open_gripper']

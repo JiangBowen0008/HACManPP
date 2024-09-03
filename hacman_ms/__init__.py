@@ -1,0 +1,1 @@
+from .make_ms_vec_env import make_maniskill_venv

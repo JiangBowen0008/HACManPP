@@ -1,0 +1,50 @@
+<mujoco model="pill_bottle_Beta_Glucan_M">
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0" />
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh" />
+    </default>
+  </default>
+  <asset>
+    <mesh file="pill_bottle_Beta_Glucan_M.stl" />
+    <mesh file="pill_bottle_Beta_Glucan_M_collision_0.stl" />
+    <mesh file="pill_bottle_Beta_Glucan_M_collision_1.stl" />
+    <mesh file="pill_bottle_Beta_Glucan_M_collision_2.stl" />
+    <mesh file="pill_bottle_Beta_Glucan_M_collision_3.stl" />
+    <mesh file="pill_bottle_Beta_Glucan_M_collision_4.stl" />
+    <mesh file="pill_bottle_Beta_Glucan_M_collision_5.stl" />
+    <mesh file="pill_bottle_Beta_Glucan_M_collision_6.stl" />
+    <mesh file="pill_bottle_Beta_Glucan_M_collision_7.stl" />
+    <mesh file="pill_bottle_Beta_Glucan_M_collision_8.stl" />
+    <mesh file="pill_bottle_Beta_Glucan_M_collision_9.stl" />
+    <mesh file="pill_bottle_Beta_Glucan_M_collision_10.stl" />
+    <mesh file="pill_bottle_Beta_Glucan_M_collision_11.stl" />
+    <mesh file="pill_bottle_Beta_Glucan_M_collision_12.stl" />
+    <mesh file="pill_bottle_Beta_Glucan_M_collision_13.stl" />
+    <mesh file="pill_bottle_Beta_Glucan_M_collision_14.stl" />
+    <mesh file="pill_bottle_Beta_Glucan_M_collision_15.stl" />
+  </asset>
+  <worldbody>
+    <body name="pill_bottle_Beta_Glucan_M">
+      <geom mesh="pill_bottle_Beta_Glucan_M" class="visual" />
+      <geom mesh="pill_bottle_Beta_Glucan_M_collision_0" class="collision" />
+      <geom mesh="pill_bottle_Beta_Glucan_M_collision_1" class="collision" />
+      <geom mesh="pill_bottle_Beta_Glucan_M_collision_2" class="collision" />
+      <geom mesh="pill_bottle_Beta_Glucan_M_collision_3" class="collision" />
+      <geom mesh="pill_bottle_Beta_Glucan_M_collision_4" class="collision" />
+      <geom mesh="pill_bottle_Beta_Glucan_M_collision_5" class="collision" />
+      <geom mesh="pill_bottle_Beta_Glucan_M_collision_6" class="collision" />
+      <geom mesh="pill_bottle_Beta_Glucan_M_collision_7" class="collision" />
+      <geom mesh="pill_bottle_Beta_Glucan_M_collision_8" class="collision" />
+      <geom mesh="pill_bottle_Beta_Glucan_M_collision_9" class="collision" />
+      <geom mesh="pill_bottle_Beta_Glucan_M_collision_10" class="collision" />
+      <geom mesh="pill_bottle_Beta_Glucan_M_collision_11" class="collision" />
+      <geom mesh="pill_bottle_Beta_Glucan_M_collision_12" class="collision" />
+      <geom mesh="pill_bottle_Beta_Glucan_M_collision_13" class="collision" />
+      <geom mesh="pill_bottle_Beta_Glucan_M_collision_14" class="collision" />
+      <geom mesh="pill_bottle_Beta_Glucan_M_collision_15" class="collision" />
+    </body>
+  </worldbody>
+</mujoco>
