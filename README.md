@@ -19,28 +19,33 @@ Code Release for HACMan++.
 Please feel free to open an issue or email us at {yilinwu, bowenj}@andrew.cmu.edu if you have any questions.
 
 ## Table of Contents
-- [HACMan++ Code Release](#hacman-spatially-grounded-motion-primitives-for-manipulation)
+- [HACMan++: Spatially-Grounded Motion Primitives for Manipulation](#hacman-spatially-grounded-motion-primitives-for-manipulation)
   - [Table of Contents](#table-of-contents)
-- [ Installation](#installation)
-  - [Install HACMan++ DoubleBin Env](#install-hacman-doublebin-env-dependencies)
-  - [Install Other dependencies](#install-other-dependencies)
-  - [Simple Test to Visualize the DoubleBin Env](#simple-test-to-visualize-the-doublebin-environment-with-primitives)
-  - [Simple Test to Visualize the ManiSkill2 Env](#simple-test-to-visualize-the-maniskill-environment-with-primitives)
+- [Installation](#installation)
+  - [Install HACMan++ DoubleBin Env Dependencies](#install-hacman-doublebin-env-dependencies)
+  - [Install other dependencies](#install-other-dependencies)
+  - [Simple Test to Visualize the DoubleBin Environment with Primitives](#simple-test-to-visualize-the-doublebin-environment-with-primitives)
+  - [Simple Test to Visualize the Maniskill Environment with Primitives](#simple-test-to-visualize-the-maniskill-environment-with-primitives)
   - [Configure WandB logging](#configure-wandb-logging)
 - [Usage](#usage)
   - [Quick Start](#quick-start)
-  - [Training HACMan++ on ManiSkill2Env](#running-experiments-of-hacman-on-maniskill2-env)
-  - [Training HACMan++ on HACMan++DoubleBinEnv](#running-experiments-of-hacman-on-hacmandoublebinenv)
-  - [Training HACMan++ on Robosuite Env](#running-experiments-of-hacman-on-robosuite-env)
+  - [Running Experiments of HACMAN++ On ManiSkill2 Env](#running-experiments-of-hacman-on-maniskill2-env)
+  - [Running Experiments of HACMAN++ On Robosuite Env](#running-experiments-of-hacman-on-robosuite-env)
+  - [Running Experiments of HACMan++ on HACMan++DoubleBinEnv](#running-experiments-of-hacman-on-hacmandoublebinenv)
   - [Evaluation](#evaluation)
 - [Development](#development)
   - [Code Structure](#code-structure)
+    - [HACMan++-wrapped Environments](#hacman-wrapped-environments)
+      - [Robosuite](#robosuite)
+      - [ManiSkill2](#maniskill2)
+      - [DoubleBin](#doublebin)
+      - [Adroit](#adroit)
   - [Adding New Environments](#adding-new-environments)
-  - [Explanation of the hybrid policy](#explanation-of-the-hybrid-policy)
-  - [Explanation of the motion primitives](#explanation-of-the-motion-primitives)
-  - [Explanation of the environment wrappers](#explanation-of-the-environment-wrappers)
+  - [Adding New Primitives](#adding-new-primitives)
+  - [Explanation of Hybrid Action Space (Location Policy)](#explanation-of-hybrid-action-space-location-policy)
+  - [Explanation of the Motion Primitives](#explanation-of-the-motion-primitives)
+  - [Explanation of the Environment Wrappers](#explanation-of-the-environment-wrappers)
 - [Acknowledgement](#acknowledgement)
-- [Code Licence](#code-licence)
 - [Citation](#citation)
 
 
@@ -286,23 +291,26 @@ We use the adroit environment from the `manipulation_suite` package. It does not
 
 ## Adding New Environments
 
-To add a new environment, you need to implement the functions in `hacman/envs/sim_envs/base_env.py`. See `hacman/envs/sim_envs/simple_env.py` for an example. Afterwards, add the new environment to `hacman/envs/setup_envs.py`.
+Different environments should be added based on whether they support parallelized environments. If the environment supports parallelized environments, please see the ManiSkill2 environment for reference. If the environment does not support parallelized environments, please see the Robosuite environment for reference.
 
+## Adding New Primitives
 
-## Explanation of the hybrid policy
+To add new primitives, you need to define the primitive in the `primitives.py` file in the corresponding environment folder. The primitive should inherit the base class `Primitive` and implement the `execute` function. The `execute` function should define the low-level action of the primitive. The `is_valid` function should define the pre-condition of the primitive. The `visualize` function should define how the primitive is visualized in the plotly.
+
+## Explanation of Hybrid Action Space (Location Policy)
 
 In the paper, we propose a hybrid action space with a discrete component (action location) and a continuous component (motion parameters). Unfortunately, Stable baselines3 does not support hybrid action space. We design a workaround to incorporate the hybrid action space into Stable baselines3 that can be combined with existing continuous action space algorithms with minimal modifications.
 
-The main idea is to include the discrete part of the policy (location policy) into the environment as an environment wrapper. As illustrated in the figure below, the raw output of env.step will be passed into a location policy wrapper (implemented as SubprocVecEnvwithLocationPolicy or DummyVecEnvwithLocationPolicy in `hacman/envs/location_policy_wrappers.py`). The location policy then selects the discrete action based on the current model and appends the action as `poke_idx` into the observation. Then, the full observation, including the original observation and `poke_idx`, will be passed into the RL algorithm of Stable baseline3. In addition, we pass the `poke_idx` back to the simulation environment by `set_prev_obs` to be used for the next `env.step`. In this way, the discrete component of the policy is off-loaded into the environment and we can use any algorithm with continuous action space seamlessly.
+The main idea is to include the discrete part of the policy (primitive location and primitive type) into the environment as an environment wrapper. The raw output of env.step is passed into a location policy wrapper (implemented in `hacman/algos/location_policy.py`). The location policy then selects the discrete action based on the current model and appends the action as `poke_idx` and `prim_idx` into the observation. Then, the full observation, including the original observation, `poke_idx` and `prim_idx`, will be passed into the RL algorithm of Stable baseline3. In addition, we pass the `poke_idx` and the `prim_idx` back to the simulation environment by `set_prev_obs` to be used for the next `env.step`. In this way, the discrete component of the policy is off-loaded into the environment and we can use any algorithm with continuous action space seamlessly.
 
-Note that the wrappers in `hacman/envs/location_policy_wrappers.py` serve as a connection between the environment and the wrapper. The actual "policy" (how we select the discrete action) is defined as `LocationPolicyWithArgmaxQ` in `hacman/algos/location_policy.py`. 
+Note that the wrappers in `hacman/envs/location_policy_vec_wrappers.py` serve as a connection between the vectorized environment and the wrapper. The actual "policy" (how we select the discrete action) is defined as `LocationPolicyWithArgmaxQ` in `hacman/algos/location_policy.py`. 
 
 ## Explanation of the Motion Primitives
 In the paper, we propose a generic set of motion primitives for manipulation. The library of motion primitives are 'Poke', 'Move to', 'Move by', 'Grasp', 'Open Gripper'. The detailed explantion of the primitives can be seen in the paper Section III.B.  Although all the tasks share the same high-level design of these primitives, the low-level implementation is different because different simulation environments have different interfaces. Therefore, we have different primitive definition files for ManiSkill2 (`/hacman_ms/env_wrappers/primitives.py`), Robosuite (`hacman_suite/env_wrappers/primitives.py`)and DoubleBinEnv (`hacman_bin/primitives.py`). 
 
 Each primitive file has defined a default class of Primitive (e.g., `BinPrimitive`, `MSPrimitive`,`SuitePrimtive`) that has the base functions like `move_to` that can be used to compose more complicated motions of the primitive. Then for each primitive, it inherits the base class and define its own `execute` function to complete the primitive's motion. It also has `is_valid` function to check the pre-condition of the primitive and `visualize` function to define how primitive is visualized in the plotly.
 
-## Explanation of the environment wrappers
+## Explanation of the Environment Wrappers
 
 This section presents the complete list of environment wrappers employed in this project.
 
@@ -327,6 +335,17 @@ For evaluation, we add one more wrapper `WandbPointCloudRecorder` on top to reco
 4. `WandbPointCloudRecorder`.
    
    This wrapper is used to record and generate point cloud visualizations of episodes and upload them to wandb. Please note that only the first of the parallel environments will have point cloud visualizations. Additionally, it records video footages if enabled. The implementation can be found in `hacman/envs/wandb_wrappers.py`.
+
+# Acknowledgement
+
+We would like to thank the authors of the following repositories for their open-source code that we used in our project:
+- [Deoxys](https://github.com/UT-Austin-RPL/deoxys_control)
+- [Stable Baselines3](https://github.com/DLR-RM/stable-baselines3)
+- [ManiSkill2](https://maniskill2.github.io/)
+- [Robosuite](https://github.com/ARISE-Initiative/robosuite)
+
+Special thanks to [Yifeng Zhu](https://zhuyifengzju.github.io/) for providing technical support and guidance on using Deoxys!
+
 
 # Citation
 
