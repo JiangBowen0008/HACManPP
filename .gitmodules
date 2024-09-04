@@ -4,3 +4,9 @@
 [submodule "robosuite"]
 	path = third_party/robosuite
 	url = https://github.com/Wenxuan-Zhou/robosuite.git
+[submodule "third_party/robosuite"]
+	path = third_party/robosuite
+	url = https://github.com/Wenxuan-Zhou/robosuite.git
+[submodule "third_party/stable-baselines3"]
+	path = third_party/stable-baselines3
+	url = https://github.com/Wenxuan-Zhou/stable-baselines3.git
