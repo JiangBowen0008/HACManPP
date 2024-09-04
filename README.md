@@ -53,7 +53,7 @@ Please feel free to open an issue or email us at {yilinwu, bowenj}@andrew.cmu.ed
 
 First, clone the github repo and the submodules
 ```
-git clone 
+git clone git@github.com:JiangBowen0008/HACManPP.git
 git submodule update --init --recursive
 ```
 
