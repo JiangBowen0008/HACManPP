@@ -254,7 +254,7 @@ To render the videos, add the following arguments
 
 ## Code Structure
 - `docs`: Documentation Files
-- `hacmanpp`: HACMan++ main package
+- `hacman`: HACMan++ main package
   - `algos`: HACMan++ RL algorithm implementation
   - `envs`: Environment wrappers for the HACMan++ algorithm
     - `setup_env.py`: Environment (parallelized) setup functions
@@ -270,7 +270,7 @@ To render the videos, add the following arguments
   - `networks`: Network modules
   - `utils`: Utility functions
   - `sb3_utils`: Stable Baselines3 utility functions
-- `hacmanpp_*`: HACMan++-wrapped environments
+- `hacman_*`: HACMan++-wrapped environments
   - `make_*_vec_env.py`: Parallelized environment setup functions
   - `env_wrappers/primitives.py`: Primitive implementations under the simulator
   - `envs`: Environments interfaced with HACMan++ wrappers
