@@ -248,53 +248,41 @@ To render the videos, add the following arguments
 # Development
 
 ## Code Structure
-- `docs`: Documentation files
-- `hacman`
-  - `algos`
-    - `feature_extractors`
-      - `feature_extractors.py`: Networks for extracting features from point clouds
-    - `hacman_td3.py`: HACMan hybrid TD3 implementation
-    - `location_policy.py`: Location policy implementation. Location policies score per-point actions and select the best point to execute the action.
-    - `mix_td3.py`: An ablation implementation of HACMan TD3.
-    - `setup_model.py`: Model setup functions.
-  - `envs`
-    - `sim_envs`
-      - `base_env.py`: Base class for simulation environments used by HACMan.
-      - `simple_env.py`: Simple 2D tabletop cube pushing environment.
-      - `hacman_bin_env.py`: HACMan Bin environment.
-    - `location_policy_wrappers.py`: Wrappers for location policy used in env. Location policy is included in the env wrapper since we add contact point index part to be part of the environment observation. 
-    - `wandb_wrappers.py`: WandB logging wrappers.
-    - `setup_envs.py`: Environment setup functions.
-    - `setup_location_policy.py`: Location policy setup functions.
-  - `networks`
-    - `common.py`: Common network modules.
-    - `point_transformer.py`: Point Transformer implementation.
-    - `pointnet2.py`: PointNet++ implementation.
-  - `sb3_utils`: Stable Baselines 3 utilities.
-    - ...
-  - `utils`
-    - `launch_utils.py`: Utility functions for launching training.
-    - `plotly_utils.py`: Utility functions for plotting 3D PCD visualizations.
-    - `robosuite_transform_utils.py`: Utility functions used by `transformations.py`. Copied from `robosuite`.
-    - `transformations.py`: Utility functions for transforming 3D PCDs.
-- `scripts`
-  - `test_simple_env.py`: Test script for `SimpleEnv`.
-  - `run.py`: Training script.
-- `bin_env`
-  - `assets`: Assets used by `HACManBinEnv`.
-    - `housekeep`: Cylindrical housekeep objects.
-    - `housekeep_all`: All housekeep objects.
-    - ...
-  - `controller_configs`: Controller configuration files.
-  - `data`
-    - `housekeep`: Goal pose data for cylindrical housekeep objects.
-    - `housekeep_all`: Goal pose data for all housekeep objects.
-  - `base_env.py`: Base environment. It contains initialization functions for the environment and object loading functions.
-  - `bin_arena.py`: Bin workspace.
-  - `osc.py`: Controller for controlling robot arm via operational space control.
-  - `poke_env.py`: Top-level sim environment directly used by `HACManBinEnv`. It contains functions for interacting with the environment, resetting the environment, and setting goals.
-  - ...
+- `docs`: Documentation Files
+- `hacmanpp`: HACMan++ main package
+  - `algos`: HACMan++ RL algorithm implementation
+  - `envs`: Environment wrappers for the HACMan++ algorithm
+    - `setup_env.py`: Environment (parallelized) setup functions
+    - `setup_location_policy.py`: Location policy setup functions (see details below for explanation of location policy)
+    - `env_wrappers`: Action environment wrappers (interface for executing the primitives)
+      - `action_wrapper.py`: HACMan++-based action wrapper
+      - `...`: Baseline-based action wrappers
+    - `vec_env_wrappers`: Vectorized environment wrappers
+      - `location_policy_vec_wrappers.py`: Location-policy embedded vectorized environment wrappers
+      - `vec_obs_processing.py`: Vectorized observation processing
+      - `deterministic_wrapper.py`: Deterministic environment wrapper (for eval)
+      - `wandb_wrapper.py`: Logging environment wrapper
+  - `networks`: Network modules
+  - `utils`: Utility functions
+  - `sb3_utils`: Stable Baselines3 utility functions
+- `hacmanpp_*`: HACMan++-wrapped environments
+  - `make_*_vec_env.py`: Parallelized environment setup functions
+  - `env_wrappers/primitives.py`: Primitive implementations under the simulator
+  - `envs`: Environments interfaced with HACMan++ wrappers
+  - ... (See details below addressing **environment parallelization** and **implementation differences** specific to each environment)
 
+### HACMan++-wrapped Environments
+#### Robosuite
+The robosuite version we use does not support parallelized environments. To use Robosuite with HACMan++, we launch multiple instances of the environment as specified in `make_suite_vec_env.py`.
+
+#### ManiSkill2
+ManiSkill2 has native support for parallelized environments. In `make_ms_vec_env.py`, we wrap the MS vectorized environments with vec wrappers needed for HACMan++.
+
+#### DoubleBin
+DoubleBin is a custom environment that we implemented modified from a Robosuite environment. We use `make_doublebin_vec_env.py` to set up the environment. Its implementation details can be found [here](../hacman_bin/README.md).
+
+#### Adroit
+We use the adroit environment from the `manipulation_suite` package. It does not support parallelized environments. We use `make_adroit_vec_env.py` to set up the environment.
 
 ## Adding New Environments
 
