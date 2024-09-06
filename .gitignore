@@ -5,7 +5,6 @@ MUJOCO_LOG.TXT
 results/
 logs/
 slurm_output/
-data/
 videos/
 ManiSkill2/
 scripts/ckpts/
