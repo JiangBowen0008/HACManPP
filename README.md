@@ -185,6 +185,8 @@ If you want to launch the experiments locally, you can use argument `cluster=loc
 python scripts/launch.py ExpID=xxx ExpGroup=xxx +experiments=/name/of/config/file cluster=local/CLUSTER_NAME ++n_seeds=/number/of/seeds ++user=/name/of/the/user
 ```
 
+if you are seeing the error of ```OSError: libcusparse.so.11: cannot open shared object file: No such file or directory```.
+Please add your path of libcursparse.so.11 to your ```LD_LIBRARAY_PATH```, e.g., ```your_conda_path/envs/your_conda_env_name/lib```
 
 ## Running Experiments of HACMAN++ On ManiSkill2 Env
 
@@ -211,6 +213,8 @@ If everything is configured correctly, you should expect a success rate of ~100%
 ```
 python scripts/launch.py ExpID=9999 ExpGroup=robosuite_door_opening_test +experiments=suite_door cluster=local ++n_seeds=1
 ```
+
+
 
 ## Running Experiments of HACMan++ on HACMan++DoubleBinEnv
 
